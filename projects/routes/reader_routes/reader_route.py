@@ -24,7 +24,6 @@ def reader_page():
     to_page = form.to_page.data
     from_page = form.from_page.data
     if request.method == "POST":
-
         if file.content_type != "application/pdf":
             print(f"Uploaded File Name: {file.filename}")
             print(f"Uploaded File Content Type: {file.content_type}")
@@ -39,14 +38,15 @@ def reader_page():
                 name = file.filename.split(".")
                 print(name[0])
                 upload_dir = os.path.join(current_app.root_path, "static", "files")
-                csv_path = os.path.join(current_app.root_path, "static", "csv_files")
-                excel_path = os.path.join(current_app.root_path, "static", "excel_files", f"{name[0]}.xlsx")
+                excel_dir = os.path.join(current_app.root_path, "static", "excel_files")
                 os.makedirs(upload_dir, exist_ok=True)
+                os.makedirs(excel_dir, exist_ok=True)
                 file_path = os.path.join(upload_dir, filename)
                 file.save(file_path)
 
                 tables = extract_tables_from_pdf(file_path, to_page=to_page, from_page=from_page)
 
+                excel_path = os.path.join(excel_dir, f"{name[0]}.xlsx")
                 create_excel_with_tables(tables, excel_path)
                 if os.path.exists(excel_path):
                     print("Excel file exists:", excel_path)
