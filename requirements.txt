@@ -7,3 +7,4 @@ ghostscript
 opencv-python
 pandas
 pdfplumber
+gunicorn
