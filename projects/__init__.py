@@ -3,7 +3,7 @@ from flask import Flask
 
 def create_app():
     app = Flask(__name__, static_folder='static', template_folder='templates')
-    app.config.from_pyfile('default_config.py')
+    app.config.from_pyfile('config.py')
 
     from .routes import reader_blp, home_blp, quote_blp
 
