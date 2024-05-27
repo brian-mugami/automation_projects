@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title%}Home Page{%endblock%}
+{% block content%}
+<div>
+    <a href="{{url_for('reader_blp.reader_main_page')}}"><img src="{{url_for('static', filename='images/images.jpeg')}}"></a>
+    <a href="{{url_for('quote_blp.create_quote')}}"><img width="250" height="182"
+                                                         src="{{url_for('static', filename='images/quote_img.jpg')}}"></a>
+</div>
+{% endblock %}

@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% block title%}Create Quote{%endblock%}
+{% block content%}
+<h3>Quote Generator</h3>
+<div class="container">
+    <form method="POST" class="needs-validation" novalidate>
+        {{ form.hidden_tag() }}
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="customer_name" class="form-label">{{ form.customer_name.label }}</label>
+                {{ form.customer_name(class="form-control", id="customer_name") }}
+                <div class="invalid-feedback">
+                    Please enter a customer name.
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="customer_contact" class="form-label">{{ form.customer_contact.label }}</label>
+                {{ form.customer_contact(class="form-control", id="customer_contact") }}
+                <div class="invalid-feedback">
+                    Please enter a customer contact person.
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="customer_site" class="form-label">{{ form.customer_site.label }}</label>
+                {{ form.customer_site(class="form-control", id="customer_site") }}
+                <div class="invalid-feedback">
+                    Please enter a customer site.
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="quote_date" class="form-label">{{ form.quote_date.label }}</label>
+                {{ form.quote_date(class="form-control", id="quote_date") }}
+                <div class="invalid-feedback">
+                    Please enter a quote date.
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="sales_support" class="form-label">{{ form.sales_support.label }}</label>
+                {{ form.sales_support(class="form-control", id="sales_support") }}
+                <div class="invalid-feedback">
+                    Please enter a sales support contact.
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="account_manager" class="form-label">{{ form.account_manager.label }}</label>
+                {{ form.account_manager(class="form-control", id="account_manager") }}
+                <div class="invalid-feedback">
+                    Please enter an account manager.
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="default_currency" class="form-label">{{ form.default_currency.label }}</label>
+                {{ form.default_currency(class="form-select", id="default_currency") }}
+                <div class="invalid-feedback">
+                    Please select a currency.
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="conversion_currency" class="form-label">{{ form.conversion_currency.label }}</label>
+                {{ form.conversion_currency(class="form-select", id="conversion_currency") }}
+            </div>
+            {% if conversion %}
+            <div class="col-md-4 mb-3">
+                <label for="conversion_rate" class="form-label">{{ form.conversion_rate.label }}</label>
+                {{ form.conversion_rate(class="form-control", id="conversion_rate", placeholder="Current Conversion Will Be Chosen Unless Input") }}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="VAT" class="form-label">{{ form.VAT.label }}</label>
+                {{ form.VAT(class="form-control", id="VAT") }}
+                <div class="invalid-feedback">
+                    Please enter a VAT percentage.
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="other" class="form-label">{{ form.other.label }}</label>
+                {{ form.other(class="form-control", id="other") }}
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="margin" class="form-label">{{ form.margin.label }}</label>
+                {{ form.margin(class="form-control", id="margin") }}
+                <div class="invalid-feedback">
+                    Please enter a margin percentage.
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="items" class="form-label">{{ form.items.label }}</label>
+                {{ form.items(class="form-control", id="items") }}
+                <div class="invalid-feedback">
+                    Please enter the number of items.
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <b><label class="form-label">{{ form.quote_lines.label }}</label></b><br>
+            {% for subform in form.quote_lines %}
+            <div class="row">
+                <div class="col-md-2">
+                    <b><label class="form-label">{{ subform.item_name.label }}</label></b>
+                    {{ subform.item_name(class="form-control") }}
+                    <div class="invalid-feedback">
+                        Please enter a valid item name.
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <b><label class="form-label">{{ subform.item_description.label }}</label></b>
+                    {{ subform.item_description(class="form-control") }}
+                    <div class="invalid-feedback">
+                        Please enter a valid item description.
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <b><label class="form-label">{{ subform.item_price.label }}</label></b>
+                    {{ subform.item_price(class="form-control") }}
+                    <div class="invalid-feedback">
+                        Please enter a valid float.
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <b><label class="form-label">{{ subform.quantity.label }}</label></b>
+                    {{ subform.quantity(class="form-control") }}
+                    <div class="invalid-feedback">
+                        Please enter a valid quantity.
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <b><label class="form-label">{{ subform.logistics_fee.label }}</label></b>
+                    {{ subform.logistics_fee(class="form-control") }}
+                    <div class="invalid-feedback">
+                        Please enter a valid value.
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <b><label class="form-label">{{ subform.duties_fee.label }}</label></b>
+                    {{ subform.duties_fee(class="form-control") }}
+                    <div class="invalid-feedback">
+                        Please enter a valid value.
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <b><label class="form-label">{{ subform.other_fee.label }}</label></b>
+                    {{ subform.other_fee(class="form-control") }}
+                    <div class="invalid-feedback">
+                        Please enter a valid value.
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <b><label class="form-label">{{ subform.discount.label }}</label></b>
+                    {{ subform.discount(class="form-control") }}
+                    <div class="invalid-feedback">
+                        Please enter a valid value.
+                    </div>
+                </div>
+            </div>
+            <hr class="custom-hr">
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

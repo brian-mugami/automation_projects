@@ -1,0 +1,9 @@
+flask
+flask-wtf
+python-dotenv
+camelot-py
+tk
+ghostscript
+opencv-python
+pandas
+pdfplumber
