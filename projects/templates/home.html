@@ -2,8 +2,13 @@
 {% block title%}Home Page{%endblock%}
 {% block content%}
 <div>
-    <a href="{{url_for('reader_blp.reader_main_page')}}"><img src="{{url_for('static', filename='images/images.jpg')}}" id="pdf"></a>
-    <a href="{{url_for('quote_blp.create_quote')}}"><img width="250" height="182"
-                                                         src="{{url_for('static', filename='images/quote_img.jpg')}}"></a>
+    <a href="{{url_for('reader_blp.reader_main_page')}}"><img id="pdf"
+                                                              src="{{url_for('static', filename='images/images.jpg')}}"></a>
+    <a href="{{url_for('quote_blp.create_quote')}}"><img height="182"
+                                                         src="{{url_for('static', filename='images/quote_img.jpg')}}"
+                                                         width="250"></a>
+    <a href="{{url_for('initial_blp.initial_main_page')}}"><img height="182"
+                                                         src="{{url_for('static', filename='images/th.jpeg')}}"
+                                                         width="250"></a>
 </div>
 {% endblock %}

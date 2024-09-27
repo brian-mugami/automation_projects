@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Image Initializer{% endblock %}
+{% block content %}
+<h3>Initializer</h3>
+<div class="container">
+    <h1>Upload PDF and Image to Initialize</h1>
+    <form enctype="multipart/form-data" id="initializeImgForm" method="post" onsubmit="submitInitialImgForm(event)">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.file.label(class="form-label") }}
+            {{ form.file(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.initial_image.label(class="form-label") }}
+            {{ form.initial_image(class="form-control", id="initial") }}
+        </div>
+        <div class="form-group">
+            {{ form.img_width.label(class="form-label") }}
+            {{ form.img_width(class="form-control", id="size") }}
+        </div>
+        <div class="form-group">
+            {{ form.img_height.label(class="form-label") }}
+            {{ form.img_height(class="form-control", id="x_axis") }}
+        </div>
+        <div class="form-group">
+            {{ form.x_axis.label(class="form-label") }}
+            {{ form.x_axis(class="form-control", id="y_axis") }}
+        </div>
+        <div class="form-group">
+            {{ form.y_axis.label(class="form-label") }}
+            {{ form.y_axis(class="form-control", id="y_axis") }}
+        </div>
+        <button id="initialImgBtn" class="btn btn-primary" type="submit">Initialize</button>
+        <div id="loadingInitImgIndicator" class="spinner-border" role="status" style="display: none;">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </form>
+</div>
+{% endblock %}

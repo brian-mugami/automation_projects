@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Initializer{% endblock %}
+{% block content %}
+<h3>Initializer</h3>
+<div class="container">
+    <h1>Upload PDF to Initialize</h1>
+    <form enctype="multipart/form-data" id="initializeForm" method="post" onsubmit="submitInitialForm(event)">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.file.label(class="form-label") }}
+            {{ form.file(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.initial.label(class="form-label") }}
+            {{ form.initial(class="form-control", id="initial") }}
+        </div>
+        <div class="form-group">
+            {{ form.size.label(class="form-label") }}
+            {{ form.size(class="form-control", id="size") }}
+        </div>
+        <div class="form-group">
+            {{ form.x_axis.label(class="form-label") }}
+            {{ form.x_axis(class="form-control", id="x_axis") }}
+        </div>
+        <div class="form-group">
+            {{ form.y_axis.label(class="form-label") }}
+            {{ form.y_axis(class="form-control", id="y_axis") }}
+        </div>
+        <div class="form-group">
+            {{ form.font.label(class="form-label") }}
+            {{ form.font(class="form-control", id="font") }}
+        </div>
+        <button id="initialBtn" class="btn btn-primary" type="submit">Initialize</button>
+        <div id="loadingInitIndicator" class="spinner-border" role="status" style="display: none;">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </form>
+</div>
+{% endblock %}

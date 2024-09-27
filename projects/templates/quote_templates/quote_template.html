@@ -3,26 +3,26 @@
 {% block content%}
 <h3>Quote Generator</h3>
 <div class="container">
-    <form method="POST" class="needs-validation" novalidate>
+    <form class="needs-validation" method="POST" novalidate>
         {{ form.hidden_tag() }}
 
         <div class="row">
             <div class="col-md-4 mb-3">
-                <label for="customer_name" class="form-label">{{ form.customer_name.label }}</label>
+                <label class="form-label" for="customer_name">{{ form.customer_name.label }}</label>
                 {{ form.customer_name(class="form-control", id="customer_name") }}
                 <div class="invalid-feedback">
                     Please enter a customer name.
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="customer_contact" class="form-label">{{ form.customer_contact.label }}</label>
+                <label class="form-label" for="customer_contact">{{ form.customer_contact.label }}</label>
                 {{ form.customer_contact(class="form-control", id="customer_contact") }}
                 <div class="invalid-feedback">
                     Please enter a customer contact person.
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="customer_site" class="form-label">{{ form.customer_site.label }}</label>
+                <label class="form-label" for="customer_site">{{ form.customer_site.label }}</label>
                 {{ form.customer_site(class="form-control", id="customer_site") }}
                 <div class="invalid-feedback">
                     Please enter a customer site.
@@ -32,21 +32,21 @@
 
         <div class="row">
             <div class="col-md-4 mb-3">
-                <label for="quote_date" class="form-label">{{ form.quote_date.label }}</label>
+                <label class="form-label" for="quote_date">{{ form.quote_date.label }}</label>
                 {{ form.quote_date(class="form-control", id="quote_date") }}
                 <div class="invalid-feedback">
                     Please enter a quote date.
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="sales_support" class="form-label">{{ form.sales_support.label }}</label>
+                <label class="form-label" for="sales_support">{{ form.sales_support.label }}</label>
                 {{ form.sales_support(class="form-control", id="sales_support") }}
                 <div class="invalid-feedback">
                     Please enter a sales support contact.
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="account_manager" class="form-label">{{ form.account_manager.label }}</label>
+                <label class="form-label" for="account_manager">{{ form.account_manager.label }}</label>
                 {{ form.account_manager(class="form-control", id="account_manager") }}
                 <div class="invalid-feedback">
                     Please enter an account manager.
@@ -56,38 +56,39 @@
 
         <div class="row">
             <div class="col-md-4 mb-3">
-                <label for="default_currency" class="form-label">{{ form.default_currency.label }}</label>
+                <label class="form-label" for="default_currency">{{ form.default_currency.label }}</label>
                 {{ form.default_currency(class="form-select", id="default_currency") }}
                 <div class="invalid-feedback">
                     Please select a currency.
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="conversion_currency" class="form-label">{{ form.conversion_currency.label }}</label>
+                <label class="form-label" for="conversion_currency">{{ form.conversion_currency.label }}</label>
                 {{ form.conversion_currency(class="form-select", id="conversion_currency") }}
             </div>
             {% if conversion %}
             <div class="col-md-4 mb-3">
-                <label for="conversion_rate" class="form-label">{{ form.conversion_rate.label }}</label>
-                {{ form.conversion_rate(class="form-control", id="conversion_rate", placeholder="Current Conversion Will Be Chosen Unless Input") }}
+                <label class="form-label" for="conversion_rate">{{ form.conversion_rate.label }}</label>
+                {{ form.conversion_rate(class="form-control", id="conversion_rate", placeholder="Current Conversion Will
+                Be Chosen Unless Input") }}
             </div>
             {% endif %}
         </div>
 
         <div class="row">
             <div class="col-md-4 mb-3">
-                <label for="VAT" class="form-label">{{ form.VAT.label }}</label>
+                <label class="form-label" for="VAT">{{ form.VAT.label }}</label>
                 {{ form.VAT(class="form-control", id="VAT") }}
                 <div class="invalid-feedback">
                     Please enter a VAT percentage.
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="other" class="form-label">{{ form.other.label }}</label>
+                <label class="form-label" for="other">{{ form.other.label }}</label>
                 {{ form.other(class="form-control", id="other") }}
             </div>
             <div class="col-md-4 mb-3">
-                <label for="margin" class="form-label">{{ form.margin.label }}</label>
+                <label class="form-label" for="margin">{{ form.margin.label }}</label>
                 {{ form.margin(class="form-control", id="margin") }}
                 <div class="invalid-feedback">
                     Please enter a margin percentage.
@@ -97,7 +98,7 @@
 
         <div class="row">
             <div class="col-md-4 mb-3">
-                <label for="items" class="form-label">{{ form.items.label }}</label>
+                <label class="form-label" for="items">{{ form.items.label }}</label>
                 {{ form.items(class="form-control", id="items") }}
                 <div class="invalid-feedback">
                     Please enter the number of items.
