@@ -16,3 +16,4 @@ xlsx2pdf
 pdfkit
 wkhtmltopdf
 xlsx2html
+pypdf2
