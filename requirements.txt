@@ -8,3 +8,12 @@ opencv-python
 pandas
 pdfplumber
 gunicorn
+faker
+tabula
+fpdf
+matplotlib
+xlsx2pdf
+pdfkit
+wkhtmltopdf
+pywin32
+xlsx2html

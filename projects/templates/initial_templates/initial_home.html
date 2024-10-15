@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title%}Initializer{%endblock%}
+{% block content%}
+<div>
+    <h3>Initializer</h3>
+    <ul>
+        <li><a href="{{url_for('initial_blp.one_doc_initial')}}">One File Initializer</a></li>
+        <li><a href="{{url_for('initial_blp.many_doc_initial')}}">Multiple File Initializer</a></li>
+        <li><a href="{{url_for('initial_blp.one_doc_img_initial')}}">One File Initializer With Image</a></li>
+        <li><a href="{{url_for('initial_blp.many_docs_img_initial')}}">Multiple File Initializer With Image</a></li>
+        <li><a href="{{url_for('pager_blp.pager_main_page')}}">Paginator</a></li>
+    </ul>
+</div>
+
+{% endblock %}
