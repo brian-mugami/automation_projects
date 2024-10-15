@@ -76,4 +76,3 @@ def add_word_to_pdf(input_pdf_path, output_pdf_path, word, font="Helvetica", fon
     # Write the output to a new PDF
     with open(output_pdf_path, "wb") as output_pdf:
         writer.write(output_pdf)
-

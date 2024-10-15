@@ -5,12 +5,13 @@ from werkzeug.utils import secure_filename
 
 from .pagination_form import PaginationForm
 from ...side_proj_6 import paginate_pdf
+
 pager_blp = Blueprint("pager_blp", __name__)
 PAGE_ERROR = "The from page number must be lesser then the to page number"
 NOT_PDF = "This file is not a pdf"
 
 
-@pager_blp.route("/page-home", methods=["POST","GET"])
+@pager_blp.route("/page-home", methods=["POST", "GET"])
 def pager_main_page():
     form = PaginationForm()
     from_no = form.from_no.data

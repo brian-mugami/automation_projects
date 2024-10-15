@@ -4,7 +4,8 @@
 <h3>Initializer</h3>
 <div class="container">
     <h1>Upload PDFs to Initialize</h1>
-    <form enctype="multipart/form-data" id="multipleInitializeForm" method="post" onsubmit="submitMultipleInitialForm(event)">
+    <form enctype="multipart/form-data" id="multipleInitializeForm" method="post"
+          onsubmit="submitMultipleInitialForm(event)">
         {{ form.hidden_tag() }}
         <div class="form-group">
             {{ form.multiple_files.label(class="form-label") }}
@@ -30,8 +31,8 @@
             {{ form.font.label(class="form-label") }}
             {{ form.font(class="form-control", id="multi_font") }}
         </div>
-        <button id="multipleInitialBtn" class="btn btn-primary" type="submit">Initialize</button>
-        <div id="loadingMultipleInitIndicator" class="spinner-border" role="status" style="display: none;">
+        <button class="btn btn-primary" id="multipleInitialBtn" type="submit">Initialize</button>
+        <div class="spinner-border" id="loadingMultipleInitIndicator" role="status" style="display: none;">
             <span class="visually-hidden">Loading...</span>
         </div>
     </form>

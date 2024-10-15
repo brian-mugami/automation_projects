@@ -46,4 +46,4 @@ def create_excel_with_tables(tables, excel_path):
 
 pdf = "TENDER FOR PROCUREMENT OF ORACLE ENTERPRISE HARDWARE,SUPPORT AND MAINTENANCE(SUPPLY, INSTALLATION, CONFIGURATION AND COMMISSIONING)E-CHECKED BY USER.pdf"
 tables = extract_tables_from_pdf(pdf_path=pdf)
-create_excel_with_tables(tables,"kplc.xlsx")
+create_excel_with_tables(tables, "kplc.xlsx")

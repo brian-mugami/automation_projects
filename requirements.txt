@@ -9,3 +9,10 @@ pandas
 pdfplumber
 faker
 tabula
+fpdf
+matplotlib
+xlsx2pdf
+pdfkit
+wkhtmltopdf
+pywin32
+xlsx2html

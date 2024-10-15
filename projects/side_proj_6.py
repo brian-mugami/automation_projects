@@ -1,8 +1,8 @@
-import os
-from PyPDF2 import PdfReader, PdfWriter
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
 from io import BytesIO
+
+from PyPDF2 import PdfReader, PdfWriter
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
 
 def create_page_number_overlay(number, width, height):
@@ -77,5 +77,3 @@ def paginate_pdf(input_pdf_path, output_pdf_path, start_num=1, end_num=None):
         writer.write(output_pdf)
 
     print(f"Pagination completed. Output saved at {output_pdf_path}.")
-
-

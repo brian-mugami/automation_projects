@@ -72,6 +72,100 @@ function submitForm(event) {
         });
 }
 
+function submitPagesForm(event) {
+   event.preventDefault();
+        var form = document.getElementById("pagesForm");
+        var formData = new FormData(form);
+        var convertBtn = document.getElementById("convertPagesBtn");
+        var loadingIndicator = document.getElementById("loadingPagesIndicator");
+        convertBtn.disabled = true;
+        loadingIndicator.style.display = "block";
+
+            fetch("/reader/remove", {
+        method: "POST",
+        body: formData
+    }).then(response => {
+        if (response.ok) {
+            var disposition = response.headers.get('Content-Disposition');
+            var filename = "initialized.pdf";
+
+            if (disposition) {
+                var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                var matches = filenameRegex.exec(disposition);
+                if (matches != null && matches[1]) {
+                    filename = matches[1].replace(/['"]/g, '');
+                }
+            }
+
+            return response.blob().then(blob => ({ blob, filename }));
+        } else {
+            throw new Error("Removal failed.");
+        }
+    }).then(({ blob, filename }) => {
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }).catch(error => {
+        console.error("Removal Error:", error);
+        alert("Removal Failed. Please try again.");
+    }).finally(() => {
+        convertBtn.disabled = false;
+        loadingIndicator.style.display = "none";
+    });
+}
+
+function submitExcelForm(event) {
+   event.preventDefault();
+        var form = document.getElementById("excelForm");
+        var formData = new FormData(form);
+        var convertBtn = document.getElementById("convertExcelBtn");
+        var loadingIndicator = document.getElementById("loadingExcelIndicator");
+        convertBtn.disabled = true;
+        loadingIndicator.style.display = "block";
+
+            fetch("/excel/excel-home", {
+        method: "POST",
+        body: formData
+    }).then(response => {
+        if (response.ok) {
+            var disposition = response.headers.get('Content-Disposition');
+            var filename = "initialized.pdf";
+
+            if (disposition) {
+                var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                var matches = filenameRegex.exec(disposition);
+                if (matches != null && matches[1]) {
+                    filename = matches[1].replace(/['"]/g, ''); // Extract and clean filename
+                }
+            }
+
+            return response.blob().then(blob => ({ blob, filename }));
+        } else {
+            throw new Error("Conversion failed.");
+        }
+    }).then(({ blob, filename }) => {
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }).catch(error => {
+        console.error("Conversion Error:", error);
+        alert("Conversion Failed. Please try again.");
+    }).finally(() => {
+        convertBtn.disabled = false;
+        loadingIndicator.style.display = "none";
+    });
+}
+
 function submitInitialManyImgForm(event) {
     event.preventDefault();
     var form = document.getElementById("initializeManyImgForm");
