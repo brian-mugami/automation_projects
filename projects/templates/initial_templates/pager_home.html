@@ -18,6 +18,14 @@
             {{ form.to_no.label(class="form-label") }}
             {{ form.to_no(class="form-control", id="y_axis") }}
         </div>
+        <div class="form-group">
+            {{ form.x_offset.label(class="form-label") }}
+            {{ form.x_offset(class="form-control", id="y_axis") }}
+        </div>
+        <div class="form-group">
+            {{ form.y_offset.label(class="form-label") }}
+            {{ form.y_offset(class="form-control", id="y_axis") }}
+        </div>
         <button class="btn btn-primary" id="pagerBtn" type="submit">Paginate</button>
         <div class="spinner-border" id="loadingPagerIndicator" role="status" style="display: none;">
             <span class="visually-hidden">Loading...</span>

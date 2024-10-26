@@ -4,7 +4,7 @@ from flask import Blueprint, request, flash, current_app, send_file, render_temp
 from werkzeug.utils import secure_filename
 
 from .excel_to_pdf_form import ExcelForm
-from ...side_proj_7 import convert_excel_to_pdf
+from ...side_proj_10 import convert_excel_to_pdf
 
 excel_blp = Blueprint("excel_blp", __name__)
 NOT_EXCEL = "This file is not an excel"
@@ -15,6 +15,9 @@ content_type = ["application/vnd.openxmlformats-officedocument.spreadsheetml.she
 def excel_main_page():
     form = ExcelForm()
     file = form.file.data
+    zoom = form.zoom.data
+    orientation = form.orientation.data
+    page_size = form.page_size.data
     if request.method == "POST":
         if file.content_type not in content_type:
             flash("This is not an excel file", category="error")
@@ -35,7 +38,8 @@ def excel_main_page():
 
                 path_wkhtmltopdf = os.path.join(current_app.root_path, "wkhtmltopdf.exe")
 
-                convert_excel_to_pdf(file_path, pdf_path, path=path_wkhtmltopdf)
+                convert_excel_to_pdf(file_path, pdf_path, zoom=zoom, page_size=page_size, orientation=orientation,
+                                     path=path_wkhtmltopdf)
 
                 # Check if the PDF was successfully created
                 if os.path.exists(pdf_path):

@@ -5,14 +5,14 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 
 
-def create_page_number_overlay(number, width, height):
+def create_page_number_overlay(number, width, height, x, y):
     """
-    Create a PDF overlay with the page number in the bottom right corner.
+    Create a PDF overlay with the page number at specified (x, y) coordinates.
     """
     packet = BytesIO()
     can = canvas.Canvas(packet, pagesize=(width, height))
-    # Draw the page number in the bottom right corner
-    can.drawString(width - 50, 20, str(number))
+    # Draw the page number at the specified coordinates
+    can.drawString(x, y, str(number))
     can.save()
 
     # Move to the beginning of the BytesIO buffer
@@ -20,7 +20,7 @@ def create_page_number_overlay(number, width, height):
     return PdfReader(packet)
 
 
-def paginate_pdf(input_pdf_path, output_pdf_path, start_num=1, end_num=None):
+def paginate_pdf(input_pdf_path, output_pdf_path, start_num=1, end_num=None, x_offset=50, y_offset=20):
     # Read the input PDF
     reader = PdfReader(input_pdf_path)
     total_pages = len(reader.pages)
@@ -41,8 +41,8 @@ def paginate_pdf(input_pdf_path, output_pdf_path, start_num=1, end_num=None):
             # Get the size of the current page
             width, height = page.mediabox.upper_right
 
-            # Create a new page with the page number
-            overlay_pdf = create_page_number_overlay(start_num, width, height)
+            # Create a new page with the page number at specified coordinates
+            overlay_pdf = create_page_number_overlay(start_num, width, height, width - x_offset, y_offset)
 
             # Merge the page number onto the original PDF page
             page.merge_page(overlay_pdf.pages[0])
@@ -59,8 +59,8 @@ def paginate_pdf(input_pdf_path, output_pdf_path, start_num=1, end_num=None):
         blank_page = BytesIO()
         can = canvas.Canvas(blank_page, pagesize=letter)
         width, height = letter
-        # Add the page number to the blank page
-        can.drawString(width - 50, 20, str(start_num))
+        # Add the page number to the blank page at specified coordinates
+        can.drawString(width - x_offset, y_offset, str(start_num))
         can.showPage()
         can.save()
 
@@ -77,3 +77,7 @@ def paginate_pdf(input_pdf_path, output_pdf_path, start_num=1, end_num=None):
         writer.write(output_pdf)
 
     print(f"Pagination completed. Output saved at {output_pdf_path}.")
+
+# Example usage:
+# paginate_pdf("input.pdf", "output.pdf", start_num=1, end_num=10, x_offset=50, y_offset=20)
+# paginate_pdf("database19c-wp_pdf_paginated_from_1_1_initialized_with_TRM.pdf", "output.pdf", start_num=50, x_offset=300, y_offset=20)

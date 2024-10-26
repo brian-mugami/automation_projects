@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, request, flash, current_app, send_
 from werkzeug.utils import secure_filename
 
 from .pagination_form import PaginationForm
-from ...side_proj_6 import paginate_pdf
+from ...side_proj_11 import paginate_pdf
 
 pager_blp = Blueprint("pager_blp", __name__)
 PAGE_ERROR = "The from page number must be lesser then the to page number"
@@ -17,6 +17,8 @@ def pager_main_page():
     from_no = form.from_no.data
     to_no = form.to_no.data
     file = form.file.data
+    x_offset = form.x_offset.data
+    y_offset = form.y_offset.data
     if request.method == "POST":
         if file.content_type != "application/pdf":
             flash(NOT_PDF, category="error")
@@ -34,8 +36,9 @@ def pager_main_page():
             file_path = os.path.join(upload_dir, filename)
             paginated_path = os.path.join(pager_dir, f"{name}_paginated_from _{from_no}.pdf")
             file.save(file_path)
-
-            paginate_pdf(file_path, paginated_path, from_no, to_no)
+            print(from_no)
+            paginate_pdf(file_path, paginated_path, start_num_str=str(from_no), end_num=to_no, x_offset=x_offset,
+                         y_offset=y_offset)
             if os.path.exists(paginated_path):
                 print("Initialized file exists:", paginated_path)
                 return send_file(paginated_path, as_attachment=True,
