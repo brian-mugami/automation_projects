@@ -8,6 +8,12 @@
         <div class="form-group">
             {{ form.file.label(class="form-label") }}
             {{ form.file(class="form-control") }}
+            {{ form.zoom.label(class="form-label") }}
+            {{ form.zoom(class="form-control") }}
+            {{ form.orientation.label(class="form-label") }}
+            {{ form.orientation(class="form-control") }}
+            {{ form.page_size.label(class="form-label") }}
+            {{ form.page_size(class="form-control") }}
         </div>
         <button class="btn btn-primary" id="convertExcelBtn" type="submit">Convert</button>
         <div id="loadingExcelIndicator" style="display: none;">
