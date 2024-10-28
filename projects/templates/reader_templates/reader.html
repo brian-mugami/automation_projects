@@ -1,19 +1,59 @@
 {% extends 'base.html' %}
 {% block title%}PDF Reader{%endblock%}
 {% block content%}
-<h3>PDF Reader</h3>
 <div class="container">
-    <h1>Upload PDF to Convert to Excel</h1>
-    <form enctype="multipart/form-data" id="pdfForm" method="post">
-        {{ form.hidden_tag() }}
-        <div class="form-group">
-            {{ form.hidden_tag() }}
-            {{form.file}}
-            {{form.page.label}}
-            {{form.page}}
+
+    <div class="relative isolate px-6 pt-14 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">Specific Page Reading</h1>
+            <p class="mt-6 text-lg leading-8 text-gray-600">Enables specific or full-page reading  for streamlined document review.</p>
         </div>
-        <button class="btn btn-primary" type="submit">Convert</button>
-    </form>
+
+        <div class="col-span-full">
+            <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Upload Pdf</label>
+            <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+              <div class="text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-24 text-gray-300">
+                    <path fill-rule="evenodd" d="M5.625 1.5H9a3.75 3.75 0 0 1 3.75 3.75v1.875c0 1.036.84 1.875 1.875 1.875H16.5a3.75 3.75 0 0 1 3.75 3.75v7.875c0 1.035-.84 1.875-1.875 1.875H5.625a1.875 1.875 0 0 1-1.875-1.875V3.375c0-1.036.84-1.875 1.875-1.875Zm6.905 9.97a.75.75 0 0 0-1.06 0l-3 3a.75.75 0 1 0 1.06 1.06l1.72-1.72V18a.75.75 0 0 0 1.5 0v-4.19l1.72 1.72a.75.75 0 1 0 1.06-1.06l-3-3Z" clip-rule="evenodd" />
+                    <path d="M14.25 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 16.5 7.5h-1.875a.375.375 0 0 1-.375-.375V5.25Z" />
+                  </svg>
+                                  <form enctype="multipart/form-data" id="pdfForm" method="post">
+                    {{ form.hidden_tag() }}
+                <div class="form-group mt-4 flex text-sm leading-6 text-gray-600">
+                   
+                  <label  class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                    {{ form.hidden_tag() }}
+                    {{form.file}}
+                  </label>
+                </div>
+
+                <div class="mt-6">
+                    <label for="page" class="block text-sm font-semibold leading-6 text-gray-900">{{ form.page.label }}</label>
+                    <div class="mt-2.5">
+                        {{ form.page(class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6") }}
+                    </div>
+                </div>
+
+                </form>
+
+                <button type="submit" class="mt-6 block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Convert</button>
+
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+    
 
     <div class="spinner-border text-primary" id="loadingSpinner" role="status" style="display: none;">
         <span class="sr-only">Loading...</span>

@@ -2,16 +2,167 @@
 {% block title%}Home Page{%endblock%}
 {% block content%}
 <div>
-    <a href="{{url_for('reader_blp.reader_main_page')}}"><img id="pdf"
-                                                              src="{{url_for('static', filename='images/images.jpg')}}"></a>
-    <a href="{{url_for('quote_blp.create_quote')}}"><img height="182"
-                                                         src="{{url_for('static', filename='images/quote_img.jpg')}}"
-                                                         width="250"></a>
-    <a href="{{url_for('initial_blp.initial_main_page')}}"><img height="182"
-                                                                src="{{url_for('static', filename='images/th.jpeg')}}"
-                                                                width="250"></a>
-    <a href="{{url_for('excel_blp.excel_main_page')}}"><img height="182"
-                                                                src="{{url_for('static', filename='images/excel.jpeg')}}"
-                                                                width="250"></a>
+  <div class="relative isolate px-6 pt-14 lg:px-8">
+    <div class="text-center">
+
+
+     <h1 class="text-balance text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">Welcome to the Automation Projects</h1>
+     <p class="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">This is a project to automate the process of creating contracts and invoices.<br/>The project is divided into four modules, each with its own page.<br/>Click on the cards below to access the respective pages.</p>
+       
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-12">
+
+     
+        <a href="{{url_for('reader_blp.reader_main_page')}}"
+  class="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8"
+>
+  <span
+    class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"
+  ></span>
+
+  <div class="sm:flex sm:justify-between sm:gap-4">
+    <div>
+      <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
+       PDF TOOLS
+      </h3>
+
+    </div>
+
+    <div class="hidden sm:block sm:shrink-0">
+      <svg width="40px" height="40px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="#F1C40F" d="M0 100V0h72l28 28v72H0z"/><path fill="#F39C12" d="M0 100V72L72 0l28 28-72 72H0z"/><path fill="#FFF55B" d="M72 0h1l27 27v1H72V0z"/><path d="M34.828 55.721v3.853H23.29v7.704h9.738v3.87H23.29V81.75h-4.878V55.721h16.416zm9.252 26.028h-4.86V55.721h4.86v26.028zm10.691-3.996h10.422v3.996H49.93V55.721h4.842v22.032zm30.187-22.032v3.853H73.42v7.218h9.09v3.726h-9.09v7.362h11.538v3.87H68.542V55.721h16.416z" fill="#ffffff"/></svg>
+
+          
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <p class="text-pretty text-sm text-gray-500">
+      
+This PDF Reader enables specific or full-page reading and lets you remove excess pages for streamlined document review.
+    </p>
+  </div>
+
+  
+</a>
+
+
+
+
+<a href="{{url_for('quote_blp.create_quote')}}"
+class="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8"
+>
+<span
+  class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"
+></span>
+
+<div class="sm:flex sm:justify-between sm:gap-4">
+  <div>
+    <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
+     Quotation Generator
+    </h3>
+
+  </div>
+
+  <div class="hidden sm:block sm:shrink-0">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+      </svg>
+      
+        
+  </div>
+</div>
+
+<div class="mt-4">
+  <p class="text-pretty text-sm text-gray-500">
+    
+
+    A Quotation Generator tool that quickly creates customized quotes for products or services, enabling users to input details, adjust pricing, and generate professional, ready-to-share documents in minutes.  </p>
+</div>
+
+
+</a>
+
+
+
+
+<a href="{{url_for('initial_blp.initial_main_page')}}"
+class="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8"
+>
+<span
+  class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"
+></span>
+
+<div class="sm:flex sm:justify-between sm:gap-4">
+  <div>
+    <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
+    Paginator and  Initializer
+    </h3>
+
+  </div>
+
+  <div class="hidden sm:block sm:shrink-0">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+      </svg>
+      
+  </div>
+</div>
+
+<div class="mt-4">
+  <p class="text-pretty text-sm text-gray-500">
+    A Paginator and Initializer tool for numbering and signing pages, providing an efficient way to format documents with consistent page numbers and signatures.</div>
+</a>
+
+
+
+<a href="{{url_for('excel_blp.excel_main_page')}}"
+class="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8"
+>
+<span
+  class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"
+></span>
+
+<div class="sm:flex sm:justify-between sm:gap-4">
+  <div>
+    <h3 class="text-lg font-bold text-gray-900 sm:text-xl">
+    Excel to PDF
+    </h3>
+
+  </div>
+
+  <div class="hidden sm:block sm:shrink-0">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0 1 12 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5" />
+      </svg>
+      
+      
+  </div>
+</div>
+
+<div class="mt-4">
+  <p class="text-pretty text-sm text-gray-500">
+    An Excel to PDF converter tool that quickly transforms spreadsheets into professional PDF documents, preserving formatting and ensuring easy sharing and printing.
+  </p>
+
+
+</div>
+</a>
+
+
+
+        <!-- <a href="{{url_for('reader_blp.reader_main_page')}}"><img id="pdf"
+                                                                  src="{{url_for('static', filename='images/images.jpg')}}"></a>
+        <a href="{{url_for('quote_blp.create_quote')}}"><img height="182"
+                                                             src="{{url_for('static', filename='images/quote_img.jpg')}}"
+                                                             width="250"></a>
+        <a href="{{url_for('initial_blp.initial_main_page')}}"><img height="182"
+                                                                    src="{{url_for('static', filename='images/th.jpeg')}}"
+                                                                    width="250"></a>
+        <a href="{{url_for('excel_blp.excel_main_page')}}"><img height="182"
+                                                                    src="{{url_for('static', filename='images/excel.jpeg')}}"
+                                                                    width="250"></a> -->
+    </div>
+
 </div>
 {% endblock %}
