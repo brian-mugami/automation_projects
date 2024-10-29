@@ -72,6 +72,55 @@ function submitForm(event) {
         });
 }
 
+function submitWordForm(event) {
+   event.preventDefault();
+        var form = document.getElementById("wordForm");
+        var formData = new FormData(form);
+        var convertBtn = document.getElementById("convertWordBtn");
+        var loadingIndicator = document.getElementById("loadingWordIndicator");
+        convertBtn.disabled = true;
+        loadingIndicator.style.display = "block";
+
+            fetch("/reader/remove-word", {
+        method: "POST",
+        body: formData
+    }).then(response => {
+        if (response.ok) {
+            var disposition = response.headers.get('Content-Disposition');
+            var filename = "sanitized_word.doc";
+
+            if (disposition) {
+                var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                var matches = filenameRegex.exec(disposition);
+                if (matches != null && matches[1]) {
+                    filename = matches[1].replace(/['"]/g, '');
+                }
+            }
+
+            return response.blob().then(blob => ({ blob, filename }));
+        } else {
+            throw new Error("Removal failed.");
+        }
+    }).then(({ blob, filename }) => {
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }).catch(error => {
+        console.error("Removal Error:", error);
+        alert("Removal Failed. Please try again.");
+    }).finally(() => {
+        convertBtn.disabled = false;
+        loadingIndicator.style.display = "none";
+    });
+}
+
+
+
 function submitPagesForm(event) {
    event.preventDefault();
         var form = document.getElementById("pagesForm");

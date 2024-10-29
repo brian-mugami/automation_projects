@@ -17,3 +17,8 @@ pdfkit
 wkhtmltopdf
 xlsx2html
 pypdf2
+reportlab
+docx
+python-docx
+pdf2docx
+opencv-python-headless

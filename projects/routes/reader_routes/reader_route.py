@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from .reader_forms import PDFForm
 from ...side_proj import get_tables, GetTableException
 from ...side_proj_4 import extract_tables_from_pdf, create_excel_with_tables, TableException
-from ...side_proj_8 import remove_blank_pages
+from ...side_proj_8 import remove_blank_pages,remove_blank_docx
 
 reader_blp = Blueprint("reader_blp", __name__)
 PAGE_ERROR = "The from page number must be lesser then the to page number"
@@ -17,6 +17,38 @@ NOT_PDF = "This file is not a pdf"
 @reader_blp.route("/read-home")
 def reader_main_page():
     return render_template('reader_templates/reader_home.html')
+
+
+@reader_blp.route("/remove-word", methods=["POST", "GET"])
+def remove_word_pages():
+    form = PDFForm()
+    file = form.word_file.data
+    if request.method == "POST":
+        if file.content_type not in ["application/msword",
+                                     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]:
+            flash("Uploaded file is not a Word document.", category="error")
+        else:
+            try:
+                filename = secure_filename(file.filename)
+                name = file.filename.split(".")
+                upload_dir = os.path.join(current_app.root_path, "static", "files")
+                word_dir = os.path.join(current_app.root_path, "static", "word_files")
+                os.makedirs(upload_dir, exist_ok=True)
+                os.makedirs(word_dir, exist_ok=True)
+                file_path = os.path.join(upload_dir, filename)
+                word_path = os.path.join(word_dir, f"{name}.doc")
+                file.save(file_path)
+                remove_blank_docx(file_path,word_path)
+                if os.path.exists(word_path):
+                    print("Word file exists:", word_path)
+                    return send_file(word_path, as_attachment=True, download_name=f"{name}.doc")
+                else:
+                    print("Word file does not exist:", word_path)
+                    flash("Failed to create Word file.", category="error")
+            except Exception as e:
+                print(str(e))
+                flash("An error occurred!!", category="error")
+    return render_template('reader_templates/remove_word.html', form=form)
 
 
 @reader_blp.route("/remove", methods=["POST", "GET"])
@@ -35,9 +67,9 @@ def remove_pages():
                 os.makedirs(upload_dir, exist_ok=True)
                 os.makedirs(pdf_dir, exist_ok=True)
                 file_path = os.path.join(upload_dir, filename)
-                pdf_path = os.path.join(pdf_dir,f"{name}.pdf")
+                pdf_path = os.path.join(pdf_dir, f"{name}.pdf")
                 file.save(file_path)
-                remove_blank_pages(file_path,pdf_path)
+                remove_blank_pages(file_path, pdf_path)
                 if os.path.exists(pdf_path):
                     print("PDF file exists:", pdf_path)
                     return send_file(pdf_path, as_attachment=True, download_name=f"{name}.pdf")

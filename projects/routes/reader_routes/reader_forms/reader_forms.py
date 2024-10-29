@@ -9,6 +9,10 @@ class PDFForm(FlaskForm):
         FileRequired(message="Select a pdf file."),
         FileAllowed(['pdf'], message="Only PDF files are allowed!")
     ])
+    word_file = FileField('Upload Word File', validators=[
+        FileRequired(message="Select a word file."),
+        FileAllowed(['doc', 'docx'], message="Only Word files are allowed!")
+    ])
     from_page = IntegerField("From Page")
     to_page = IntegerField("To Page")
     page = IntegerField("Page to read on pdf")

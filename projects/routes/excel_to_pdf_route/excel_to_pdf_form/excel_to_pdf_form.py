@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import SubmitField
-from wtforms.fields.choices import SelectField
+from wtforms.fields.choices import SelectField, RadioField
 from wtforms.fields.numeric import FloatField
 from wtforms.validators import DataRequired, NumberRange
 
@@ -19,4 +19,5 @@ class ExcelForm(FlaskForm):
     zoom = FloatField('Zoom', default=1.0, validators=[DataRequired(), NumberRange(min=0.5, max=3.0,
                                                                                    message="Zoom must be between 0.5 and 3.0")]
                       )
+    format = RadioField("Extract Format", choices=[("PDF", "PDF"), ("Word", "Word")])
     submit = SubmitField("Upload")

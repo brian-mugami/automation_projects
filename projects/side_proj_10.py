@@ -94,6 +94,3 @@ def convert_excel_to_pdf(excel_path, output_pdf, page_size="A4", zoom='1.0', ori
         merger.close()
 
     print(f"Converted Excel workbook to PDF: {output_pdf}")
-
-# Example usage:
-# convert_excel_to_pdf('input_excel.xlsx', 'output_pdf.pdf', path='path/to/wkhtmltopdf.exe')
