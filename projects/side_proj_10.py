@@ -45,7 +45,7 @@ def convert_excel_to_pdf(excel_path, output_pdf, page_size="A4", zoom='1.0', ori
     merger = PdfMerger()
 
     # Configure pdfkit with the path
-    config = pdfkit.configuration(wkhtmltopdf=path)
+    config = pdfkit.configuration()
 
     # Iterate through each sheet
     for sheet_name in workbook.sheetnames:

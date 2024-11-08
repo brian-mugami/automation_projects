@@ -74,8 +74,7 @@ def convert_excel_to_pdf(excel_path, output_pdf_path, num_threads=4,
     workbook = load_workbook(excel_path)
     merger = PdfMerger()
 
-    path_wkhtmltopdf = path
-    config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+    config = pdfkit.configuration()
 
     with ThreadPoolExecutor(max_workers=num_threads) as executor:
         futures = [executor.submit(process_sheet_to_pdf, sheet_name, workbook, config, merger) for sheet_name in

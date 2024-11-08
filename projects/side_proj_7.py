@@ -43,7 +43,7 @@ def convert_excel_to_pdf(excel_path, output_pdf, path='wkhtmltopdf.exe'):
     merger = PdfMerger()
 
     # Configure pdfkit with the path
-    config = pdfkit.configuration(wkhtmltopdf=path)
+    config = pdfkit.configuration()
 
     # Iterate through each sheet
     for sheet_name in workbook.sheetnames:
