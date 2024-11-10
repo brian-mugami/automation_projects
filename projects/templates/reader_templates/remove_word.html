@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Word Reader{% endblock %}
+{% block content %}
+<h3>Word Reader</h3>
+<div class="container">
+    <h1>Remove Excess Word Pages</h1>
+    <form enctype="multipart/form-data" id="wordForm" method="post" onsubmit="submitWordForm(event)">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.word_file.label(class="form-label") }}
+            {{ form.word_file(class="form-control") }}
+        </div>
+        <button class="btn btn-primary" id="convertWordBtn" type="submit">Convert</button>
+        <div id="loadingWordIndicator" style="display: none;">
+            <p>Loading...</p>
+        </div>
+    </form>
+</div>
+{% endblock %}

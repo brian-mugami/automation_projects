@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title%}Create PDF from Excel{%endblock%}
+{% block content%}
+<div class="container">
+    <h1>Upload Excel to Convert to PDF/Word</h1>
+    <form enctype="multipart/form-data" id="excelForm" method="post" onsubmit="submitExcelForm(event)">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.file.label(class="form-label") }}
+            {{ form.file(class="form-control") }}
+            {{ form.zoom.label(class="form-label") }}
+            {{ form.zoom(class="form-control") }}
+            {{ form.orientation.label(class="form-label") }}
+            {{ form.orientation(class="form-control") }}
+            {{ form.page_size.label(class="form-label") }}
+            {{ form.page_size(class="form-control") }}
+            {{ form.format.label(class="form-label") }}
+            {{ form.format()}}
+        </div>
+        <button class="btn btn-primary" id="convertExcelBtn" type="submit">Convert</button>
+        <div id="loadingExcelIndicator" style="display: none;">
+            <p>Loading...</p>
+        </div>
+    </form>
+</div>
+{% endblock %}

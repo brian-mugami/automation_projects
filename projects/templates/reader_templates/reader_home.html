@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title%}PDF Reader{%endblock%}
+{% block content%}
+<div>
+    <h3>PDF Reader</h3>
+    <ul>
+        <li><a href="{{url_for('reader_blp.reader_homepage')}}">Specific Page Reading</a></li>
+        <li><a href="{{url_for('reader_blp.reader_page')}}">All Page Reading</a></li>
+        <li><a href="{{url_for('reader_blp.remove_pages')}}">Remove Excess PDF Pages</a></li>
+        <li><a href="{{url_for('reader_blp.remove_word_pages')}}">Remove Excess Word Pages</a></li>
+    </ul>
+</div>
+
+{% endblock %}

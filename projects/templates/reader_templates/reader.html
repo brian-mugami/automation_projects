@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title%}PDF Reader{%endblock%}
+{% block content%}
+<h3>PDF Reader</h3>
+<div class="container">
+    <h1>Upload PDF to Convert to Excel</h1>
+    <form enctype="multipart/form-data" id="pdfForm" method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.hidden_tag() }}
+            {{form.file}}
+            {{form.page.label}}
+            {{form.page}}
+        </div>
+        <button class="btn btn-primary" type="submit">Convert</button>
+    </form>
+
+    <div class="spinner-border text-primary" id="loadingSpinner" role="status" style="display: none;">
+        <span class="sr-only">Loading...</span>
+    </div>
+    <div id="resultMessage" style="display: none;"></div>
+</div>
+
+{% endblock %}
