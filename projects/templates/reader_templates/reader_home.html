@@ -2,65 +2,13 @@
 {% block title%}PDF Reader{%endblock%}
 {% block content%}
 <div>
-
-    <div class="bg-white py-24 sm:py-32">
-        <div class="mx-auto grid max-w-7xl gap-20 px-6 lg:px-8 xl:grid-cols-3">
-          <div class="max-w-xl">
-            <h2 class="text-pretty text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">PDF Reader</h2>
-            <p class="mt-6 text-lg leading-8 text-gray-600">This  PDF Reader enables specific or full-page reading and lets you remove excess pages for streamlined document review.</p>
-          </div>
-          <ul role="list" class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
-            <li>
-                <a href="{{url_for('reader_blp.reader_homepage')}}">
-              <div class="flex items-center gap-x-6">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-                  </svg>
-                                  <div>
-                  <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">Specific Page Reading</h3>
-                  <p class="text-sm font-semibold leading-6 text-indigo-600">Read a specific page</p>
-                </div>
-              </div>
-            </a>
-            </li>
-
-            <li>
-                <a href="{{url_for('reader_blp.reader_page')}}">
-              <div class="flex items-center gap-x-6">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
-                  </svg>
-                  
-                                  <div>
-                  <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">All Page Reading</h3>
-                  <p class="text-sm font-semibold leading-6 text-indigo-600">Read total pages</p>
-                </div>
-              </div>
-            </a>
-            </li>
-
-            <li>
-                <a href="{{url_for('reader_blp.remove_pages')}}">
-              <div class="flex items-center gap-x-6">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m6.75 12H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-                  </svg>
-                  
-                                  <div>
-                  <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">Remove Excess Pages</h3>
-                  <p class="text-sm font-semibold leading-6 text-indigo-600">Remove blank pages from your document</p>
-                </div>
-              </div>
-            </a>
-            </li>
-
-      
-          </ul>
-        </div>
-      </div>
-
-
-
+    <h3>PDF Reader</h3>
+    <ul>
+        <li><a href="{{url_for('reader_blp.reader_homepage')}}">Specific Page Reading</a></li>
+        <li><a href="{{url_for('reader_blp.reader_page')}}">All Page Reading</a></li>
+        <li><a href="{{url_for('reader_blp.remove_pages')}}">Remove Excess PDF Pages</a></li>
+        <li><a href="{{url_for('reader_blp.remove_word_pages')}}">Remove Excess Word Pages</a></li>
+    </ul>
 </div>
 
 {% endblock %}
