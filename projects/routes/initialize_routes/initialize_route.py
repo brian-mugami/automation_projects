@@ -6,7 +6,7 @@ from flask import Blueprint, render_template, request, flash, current_app, send_
 from werkzeug.utils import secure_filename
 
 from .initialize_form import InitialForm, ImageInitialForm
-from ...side_proj_5 import add_word_to_pdf, add_image_to_pdf
+from ...initilaizer_with_image_and_initial import add_word_to_pdf, add_image_to_pdf
 
 initial_blp = Blueprint("initial_blp", __name__)
 NOT_PDF = "This file is not a pdf"

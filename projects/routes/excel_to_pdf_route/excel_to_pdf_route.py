@@ -4,9 +4,9 @@ from flask import Blueprint, request, flash, current_app, send_file, render_temp
 from werkzeug.utils import secure_filename
 
 from .excel_to_pdf_form import ExcelForm
-from ...side_proj_10 import convert_excel_to_pdf
-from ...side_proj_12 import convert_excel_to_word
-from ...side_proj_13 import convert_pdf_to_word
+from ...excel_to_pdf import convert_excel_to_pdf
+from ...excel_to_word import convert_pdf_to_word
+
 excel_blp = Blueprint("excel_blp", __name__)
 NOT_EXCEL = "This file is not an excel"
 content_type = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel", ]

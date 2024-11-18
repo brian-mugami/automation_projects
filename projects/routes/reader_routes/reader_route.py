@@ -4,9 +4,9 @@ from flask import Blueprint, render_template, request, current_app, send_file, f
 from werkzeug.utils import secure_filename
 
 from .reader_forms import PDFForm
-from ...side_proj import get_tables, GetTableException
-from ...side_proj_4 import extract_tables_from_pdf, create_excel_with_tables, TableException
-from ...side_proj_8 import remove_blank_pages,remove_blank_docx
+from ...extract_tables import get_tables, GetTableException
+from ...create_excel_from_pdf_table import extract_tables_from_pdf, create_excel_with_tables, TableException
+from ...remove_excess_pages import remove_blank_pages, remove_blank_docx
 
 reader_blp = Blueprint("reader_blp", __name__)
 PAGE_ERROR = "The from page number must be lesser then the to page number"
@@ -38,7 +38,7 @@ def remove_word_pages():
                 file_path = os.path.join(upload_dir, filename)
                 word_path = os.path.join(word_dir, f"{name}.doc")
                 file.save(file_path)
-                remove_blank_docx(file_path,word_path)
+                remove_blank_docx(file_path, word_path)
                 if os.path.exists(word_path):
                     print("Word file exists:", word_path)
                     return send_file(word_path, as_attachment=True, download_name=f"{name}.doc")
