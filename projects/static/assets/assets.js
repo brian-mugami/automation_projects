@@ -15,6 +15,87 @@
     });
 
 })();
+document.getElementById("wordFileInput").addEventListener("change", function () {
+    const translateButton = document.getElementById("translateButton");
+    const spinnerLoader = document.getElementById("spinner-loader-detect");
+    const fileInput = this.files[0];
+    if (!fileInput) return;
+
+    const formData = new FormData();
+    formData.append("word_file", fileInput);
+
+    // Show a loading spinner or message
+    const resultMessage = document.getElementById("resultMessage");
+    translateButton.disabled = true;
+    resultMessage.innerHTML = "Detecting language...";
+    resultMessage.style.display = "block";
+    spinnerLoader.style.display = "block";
+    fetch("/translate/detect", {
+        method: "POST",
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.language) {
+            resultMessage.innerHTML = `Main Detected Language: ${data.language}`;
+            translateButton.disabled = false;
+            spinnerLoader.style.display = "none";
+        } else {
+            resultMessage.innerHTML = "No language detected, ensure the document is a word document and is not blank";
+            translateButton.disabled = false;
+            spinnerLoader.style.display = "none";
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        resultMessage.innerHTML = "An error occurred during detection!";
+        translateButton.disabled = true;
+    });
+});
+
+document.getElementById("translateModalForm").addEventListener("submit", function (e) {
+    e.preventDefault();  // Prevent the default form submission
+
+    const modalStatusMessage = document.getElementById("modalStatusMessage");
+    const spinner = document.getElementById("spinner-while-translating");
+    const messageContainer = document.getElementById("messages");
+
+    messageContainer.innerHTML = '';  // Clear previous messages
+    modalStatusMessage.textContent = "Starting translation...";
+    modalStatusMessage.style.display = "block";
+    spinner.style.display = "block";  // Show spinner
+
+    // Setup EventSource to get progress updates
+    const eventSource = new EventSource("/translate/translate");  // Corrected EventSource URL to match the backend route
+
+    eventSource.onmessage = function (event) {
+        const message = event.data;
+        const newMessage = document.createElement('p');
+        newMessage.textContent = message;
+        messageContainer.appendChild(newMessage);  // Append the message to the container
+
+        if (message.startsWith("download_url-")) {
+            const downloadUrl = message.replace("download_url-", "").trim();
+            eventSource.close();  // Close the EventSource
+            spinner.style.display = "none";  // Hide the spinner
+            modalStatusMessage.textContent = "Translation completed! Downloading file...";
+            window.location.href = downloadUrl;  // Trigger file download
+        }
+        // If the translation is completed, close the EventSource and hide the spinner
+        if (message.includes("Translation completed.")) {
+            eventSource.close();
+            modalStatusMessage.textContent = "Translation completed!";
+            spinner.style.display = "none";
+        }
+    };
+
+    eventSource.onerror = function (error) {
+        console.error("EventSource error:", error);
+        modalStatusMessage.textContent = "Error occurred during translation.";
+        spinner.style.display = "none";
+        eventSource.close();
+    };
+});
 
 function validateForm() {
         var fromPage = document.getElementById("from_page").value;

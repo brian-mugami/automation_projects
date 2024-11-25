@@ -1,7 +1,6 @@
 import re
 
 import fitz
-from googletrans import Translator
 from langdetect import detect, DetectorFactory
 from langdetect.lang_detect_exception import LangDetectException
 
@@ -46,4 +45,3 @@ def detect_languages(pdf_path):
     print(f"Detected Languages: {language_list}")
 
     return language_list, text_content
-

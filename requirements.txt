@@ -30,3 +30,4 @@ deepl
 deep-translator
 translatepy
 google-cloud-translate
+nltk

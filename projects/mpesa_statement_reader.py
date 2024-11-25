@@ -1,6 +1,5 @@
-import tabula
-from pypdf import PdfReader, PdfWriter
 import camelot
+from pypdf import PdfReader, PdfWriter
 
 encrypted_pdf_path = "MPESA_Statement_2024-05-11_to_2024-11-11_2547xxxxxx200 (1).pdf"
 decrypted_pdf_path = "decrypted_file.pdf"

@@ -12,3 +12,5 @@ LANGUAGE_CODES = {
     'tr': 'Turkish', 'uk': 'Ukrainian', 'ur': 'Urdu', 'vi': 'Vietnamese', 'zh-cn': 'Chinese (Simplified)',
     'zh-tw': 'Chinese (Traditional)'
 }
+
+language_choices = [(code, name) for code, name in LANGUAGE_CODES.items()]
