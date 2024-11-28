@@ -9,13 +9,13 @@ class MpesaApiTestCase(unittest.TestCase):
         self.client = self.app.test_client()
 
     def test_mpesa_api(self):
-        pdf_path = ''
+        pdf_path = 'MPESA_Statement_2024-05-11_to_2024-11-11_2547xxxxxx200.pdf'
         with open(pdf_path, 'rb') as f:
             response = self.client.post(
                 '/mpesa/mpesa_api',
                 data={
                     'pdf': (f, 'testfile.pdf'),
-                    'password': ''
+                    'password': '719794'
                 }
             )
 

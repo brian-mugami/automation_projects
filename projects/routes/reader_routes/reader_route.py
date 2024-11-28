@@ -4,9 +4,9 @@ from flask import Blueprint, render_template, request, current_app, send_file, f
 from werkzeug.utils import secure_filename
 
 from .reader_forms import PDFForm
-from ...create_excel_from_pdf_table import extract_tables_from_pdf, create_excel_with_tables, TableException
-from ...extract_tables import get_tables, GetTableException
-from ...remove_excess_pages import remove_blank_pages, remove_blank_docx
+from projects.resources.create_excel_from_pdf_table import extract_tables_from_pdf, create_excel_with_tables, TableException
+from projects.resources.extract_tables import get_tables, GetTableException
+from projects.resources.remove_excess_pages import remove_blank_pages, remove_blank_docx
 
 reader_blp = Blueprint("reader_blp", __name__)
 PAGE_ERROR = "The from page number must be lesser then the to page number"

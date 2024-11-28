@@ -3,7 +3,7 @@ import os
 from flask import Blueprint, request, jsonify, current_app
 from werkzeug.utils import secure_filename
 
-from projects.mpesa_statement_reader import read_mpesa_pdf, MpesaStatementException
+from projects.resources.mpesa_statement_reader import read_mpesa_pdf, MpesaStatementException
 
 mpesa_blp = Blueprint("mpesa_blp", __name__)
 
@@ -18,7 +18,7 @@ def read_mpesa_stat():
             return jsonify({'error': 'No PDF file part'}), 400
         else:
             filename = secure_filename(file.filename)
-            name = file.filename.split(".")
+            name, ext = os.path.splitext(file.filename)
             upload_dir = os.path.join(current_app.root_path, "static", "files")
             mpesa_dir = os.path.join(current_app.root_path, "static", "mpesa_files")
             os.makedirs(upload_dir, exist_ok=True)
@@ -28,8 +28,6 @@ def read_mpesa_stat():
             file.save(file_path)
             try:
                 transaction = read_mpesa_pdf(pdf_path=file_path, pdf_password=password, decrypted_pdf_path=mpesa_path)
-                os.remove(file_path)
-                os.remove(mpesa_path)
                 return jsonify(transaction), 200
             except MpesaStatementException as e:
                 return jsonify({"error": str(e)}), 400
