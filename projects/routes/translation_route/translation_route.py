@@ -4,8 +4,8 @@ from flask import Blueprint, render_template, request, current_app, session, jso
     stream_with_context, redirect, url_for, send_file
 
 from .translation_form import TranslationForm
-from ...trans_2_dox_with_googletrans import translate_word_document
-from ...word_language_detector import detect_word_language
+from projects.resources.trans_2_dox_with_googletrans import translate_word_document
+from projects.resources.word_language_detector import detect_word_language
 
 translation_blp = Blueprint("translation_blp", __name__)
 

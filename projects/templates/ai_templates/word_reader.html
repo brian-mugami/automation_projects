@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title%}AI Word{%endblock%}
+{% block content%}
+<div>
+     <h1>Upload Word Document To Analyze</h1>
+    <form enctype="multipart/form-data" id="AiWordForm" method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.word_file(id="aiWordFileInput") }}
+        </div>
+        <button id="translateButton" type="button" class="btn btn-light" disabled>
+            <a href="{{url_for('translation_blp.translator')}}">Translate</a>
+        </button>
+    </form>
+    <div class="spinner-border text-primary" id="spinner-loader-detect" role="status" style="display: none;">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div id="resultMessage" style="display: none;"></div>
+</div>
+
+</div>
+
+{% endblock %}

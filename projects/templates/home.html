@@ -1,20 +1,25 @@
 {% extends 'base.html' %}
-{% block title%}Home Page{%endblock%}
-{% block content%}
-<div>
-    <a href="{{url_for('reader_blp.reader_main_page')}}"><img id="pdf"
-                                                              src="{{url_for('static', filename='images/images.jpg')}}"></a>
-    <a href="{{url_for('quote_blp.create_quote')}}"><img height="182"
-                                                         src="{{url_for('static', filename='images/quote_img.jpg')}}"
-                                                         width="250"></a>
-    <a href="{{url_for('initial_blp.initial_main_page')}}"><img height="182"
-                                                                src="{{url_for('static', filename='images/th.jpeg')}}"
-                                                                width="250"></a>
-    <a href="{{url_for('excel_blp.excel_main_page')}}"><img height="182"
-                                                            src="{{url_for('static', filename='images/excel.jpeg')}}"
-                                                            width="250"></a>
-    <a href="{{url_for('translation_blp.language_detector')}}"><img height="182"
-                                                                    src="{{url_for('static', filename='images/translation.jpg')}}"
-                                                                    width="250"></a>
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+<div class="image-links-container" style="text-align: center;">
+    <a href="{{ url_for('reader_blp.reader_main_page') }}" class="image-link">
+        <img id="pdf" src="{{ url_for('static', filename='images/images.jpg') }}" alt="Reader Main Page" width="250" height="182">
+    </a>
+    <a href="{{ url_for('quote_blp.create_quote') }}" class="image-link">
+        <img src="{{ url_for('static', filename='images/quote_img.jpg') }}" alt="Create Quote" width="250" height="182">
+    </a>
+    <a href="{{ url_for('initial_blp.initial_main_page') }}" class="image-link">
+        <img src="{{ url_for('static', filename='images/th.jpeg') }}" alt="Initial Main Page" width="250" height="182">
+    </a>
+    <a href="{{ url_for('excel_blp.excel_main_page') }}" class="image-link">
+        <img src="{{ url_for('static', filename='images/excel.jpeg') }}" alt="Excel Main Page" width="250" height="182">
+    </a>
+    <a href="{{ url_for('translation_blp.language_detector') }}" class="image-link">
+        <img src="{{ url_for('static', filename='images/translation.jpg') }}" alt="Language Detector" width="250" height="182">
+    </a>
+    <a href="{{ url_for('ai_blp.ai_home') }}" class="image-link">
+        <img src="{{ url_for('static', filename='images/ai.jpeg') }}" alt="AI Page" width="250" height="182">
+    </a>
 </div>
 {% endblock %}

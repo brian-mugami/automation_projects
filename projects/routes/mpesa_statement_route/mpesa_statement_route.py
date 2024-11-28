@@ -3,7 +3,7 @@ import os
 from flask import Blueprint, request, jsonify, current_app
 from werkzeug.utils import secure_filename
 
-from projects.mpesa_statement_reader import read_mpesa_pdf, MpesaStatementException
+from projects.resources.mpesa_statement_reader import read_mpesa_pdf, MpesaStatementException
 
 mpesa_blp = Blueprint("mpesa_blp", __name__)
 
