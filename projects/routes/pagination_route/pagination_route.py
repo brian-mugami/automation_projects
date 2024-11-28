@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, request, flash, current_app, send_
 from werkzeug.utils import secure_filename
 
 from .pagination_form import PaginationForm
-from ...side_proj_11 import paginate_pdf
+from ...paginate_pdf import paginate_pdf
 
 pager_blp = Blueprint("pager_blp", __name__)
 PAGE_ERROR = "The from page number must be lesser then the to page number"

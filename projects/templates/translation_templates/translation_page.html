@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Translation{% endblock %}
+
+{% block content %}
+<h3>Word Document Translation</h3>
+<form id="translateModalForm" method="post">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.language.label }}
+        {{ form.language }}
+    </div>
+    <div class="form-group">
+        {{ form.model.label }}
+        {{ form.model }}
+    </div>
+    <div class="footer">
+        <button type="submit" class="btn btn-primary" id="translateModalButton">Translate</button>
+    </div>
+</form>
+
+<!-- Modal Status Message -->
+<div id="modalStatusMessage" style="display:none;"></div>
+
+<!-- Spinner -->
+<div class="spinner-border text-primary" role="status" style="display: none;" id="spinner-while-translating">
+    <span class="visually-hidden">Loading...</span>
+</div>
+
+<!-- Message Container for Translation Progress -->
+<div id="messages" class="message-container" style="margin-top: 20px;"></div>
+<div id="download-link-container" style="margin-top: 20px;"></div>
+
+{% endblock %}

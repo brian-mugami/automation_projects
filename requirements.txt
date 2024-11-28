@@ -22,3 +22,15 @@ docx
 python-docx
 pdf2docx
 opencv-python-headless
+langdetect
+langid
+googletrans==4.0.0-rc1
+googletrans
+PyMuPDF
+deepl
+deep-translator
+translatepy
+google-cloud-translate
+nltk
+langchain
+langchain-ollama
