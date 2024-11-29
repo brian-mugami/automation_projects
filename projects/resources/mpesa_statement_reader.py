@@ -1,7 +1,7 @@
 import logging
 import re
 
-import camelot
+import pdfplumber
 from pypdf import PdfReader, PdfWriter
 
 logging.basicConfig(level=logging.INFO)
@@ -21,7 +21,7 @@ def extract_details(detail):
     return detail.strip()
 
 
-def read_mpesa_pdf(pdf_path: str, decrypted_pdf_path=None, pdf_password=None):
+def read_mpesa_pdf(pdf_path: str, decrypted_pdf_path="decrypted_pdf.pdf", pdf_password=None):
     try:
         pdf_reader = PdfReader(pdf_path)
         status = ""
@@ -46,22 +46,29 @@ def read_mpesa_pdf(pdf_path: str, decrypted_pdf_path=None, pdf_password=None):
             pdf_to_read = pdf_path
 
         logger.info("Extracting tables with Camelot:")
-        tables = camelot.read_pdf(pdf_to_read, pages="all", multiple_tables=True)
-        for table_num, table in enumerate(tables, start=1):
-            # logger.info(f"\nProcessing Table {table_num}...")
-            raw_header = table.df.iloc[0, 0]
-            headers = [header.strip() for header in raw_header.split("\n")]
-            for row_idx, row in table.df.iterrows():
-                if row_idx == 0:
-                    continue
-                transaction = {
-                    headers[col]: extract_details(row[col]) if headers[col] == "Details" else row[col]
-                    for col in range(len(headers))
-                }
-                transaction['Table Number'] = table_num
-                transactions.append(transaction)
+        with pdfplumber.open(pdf_to_read) as pdf:
+            for page_num, page in enumerate(pdf.pages, start=1):
+                logger.info(f"Processing page {page_num}...")
+                tables = page.extract_tables()
+                for table_num, table in enumerate(tables, start=1):
+                    logger.info(f"Processing table {table_num} on page {page_num}...")
+                    headers = table[0]
+                    for row_idx, row in enumerate(table[1:], start=1):
+                        transaction = {
+                            headers[col]: extract_details(cell) if headers[col] == "Details" else cell
+                            for col, cell in enumerate(row)
+                        }
+                        transaction['Page Number'] = page_num
+                        transaction['Table Number'] = table_num
+                        transactions.append(transaction)
         transactions.append({"status": status})
         return transactions
     except Exception as e:
         logger.error(f"MpesaStatementException: {e}")
         raise MpesaStatementException(f"An error occurred:{e}")
+
+
+results = read_mpesa_pdf("MPESA_Statement_2024-05-11_to_2024-11-11_2547xxxxxx200.pdf", pdf_password="719794")
+
+for result in results:
+    print(f"{result}\n")
