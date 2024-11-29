@@ -51,7 +51,7 @@ def read_mpesa_pdf(pdf_path: str, decrypted_pdf_path="decrypted_pdf.pdf", pdf_pa
                 # logger.info(f"Processing page {page_num}...")
                 tables = page.extract_tables()
                 for table_num, table in enumerate(tables, start=1):
-                    #logger.info(f"Processing table {table_num} on page {page_num}...")
+                    # logger.info(f"Processing table {table_num} on page {page_num}...")
                     headers = table[0]
                     for row_idx, row in enumerate(table[1:], start=1):
                         transaction = {
@@ -67,8 +67,7 @@ def read_mpesa_pdf(pdf_path: str, decrypted_pdf_path="decrypted_pdf.pdf", pdf_pa
         logger.error(f"MpesaStatementException: {e}")
         raise MpesaStatementException(f"An error occurred:{e}")
 
+# results = read_mpesa_pdf("MPESA_Statement_2024-05-11_to_2024-11-11_2547xxxxxx200.pdf", pdf_password="719794")
 
-results = read_mpesa_pdf("MPESA_Statement_2024-05-11_to_2024-11-11_2547xxxxxx200.pdf", pdf_password="719794")
-
-for result in results:
-    print(f"{result}\n")
+# for result in results:
+#    print(f"{result}\n")
