@@ -10,10 +10,12 @@ mpesa_blp = Blueprint("mpesa_blp", __name__)
 
 @mpesa_blp.route("/mpesa_api", methods=["POST"])
 def read_mpesa_stat():
-    file = request.files['pdf']
+    file = request.files.get('pdf', None)
     password = request.form.get('password', None)
 
     if request.method == "POST":
+        if file is None:
+            return jsonify({'error': 'No PDF attached'}), 400
         if file.content_type != "application/pdf":
             return jsonify({'error': 'No PDF file part'}), 400
         else:
