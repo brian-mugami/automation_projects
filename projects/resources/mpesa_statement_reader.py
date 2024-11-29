@@ -22,15 +22,22 @@ def extract_details(detail):
 
 
 def read_mpesa_pdf(pdf_path: str, decrypted_pdf_path="decrypted_pdf.pdf", pdf_password=None):
+    """
+    Reads an Mpesa statement PDF, decrypts it if necessary, extracts tables, and returns transaction details.
+    """
     try:
         pdf_reader = PdfReader(pdf_path)
         status = ""
         transactions = []
+
         if pdf_reader.is_encrypted:
             if not pdf_password:
                 raise MpesaStatementException("PDF is encrypted, but no password was provided.")
-            pdf_reader.decrypt(pdf_password)
-            status = "PDF decrypted successfully."
+            if pdf_reader.decrypt(pdf_password):
+                status = "PDF decrypted successfully."
+                logger.info(status)
+            else:
+                raise MpesaStatementException("Failed to decrypt the PDF. Invalid password.")
             if decrypted_pdf_path:
                 pdf_writer = PdfWriter()
                 for page in pdf_reader.pages:
@@ -39,21 +46,22 @@ def read_mpesa_pdf(pdf_path: str, decrypted_pdf_path="decrypted_pdf.pdf", pdf_pa
                     pdf_writer.write(f)
                 pdf_to_read = decrypted_pdf_path
             else:
-                logger.info("Decrypted PDF path not provided; using in-memory decryption.")
                 pdf_to_read = pdf_path
         else:
             logger.info("This PDF is not encrypted.")
             pdf_to_read = pdf_path
+            status = "PDF was not encrypted."
 
         logger.info("Extracting tables with PDFPlumber:")
         with pdfplumber.open(pdf_to_read) as pdf:
             for page_num, page in enumerate(pdf.pages, start=1):
-                # logger.info(f"Processing page {page_num}...")
                 tables = page.extract_tables()
                 for table_num, table in enumerate(tables, start=1):
-                    #logger.info(f"Processing table {table_num} on page {page_num}...")
-                    headers = table[0]
+                    headers = table[0]  # Assuming the first row contains headers
                     for row_idx, row in enumerate(table[1:], start=1):
+                        if len(headers) != len(row):
+                            logger.warning(f"Header-row mismatch on page {page_num}, table {table_num}, row {row_idx}")
+                            continue
                         transaction = {
                             headers[col]: extract_details(cell) if headers[col] == "Details" else cell
                             for col, cell in enumerate(row)
@@ -61,14 +69,16 @@ def read_mpesa_pdf(pdf_path: str, decrypted_pdf_path="decrypted_pdf.pdf", pdf_pa
                         transaction['Page Number'] = page_num
                         transaction['Table Number'] = table_num
                         transactions.append(transaction)
+
         transactions.append({"status": status})
         return transactions
+
     except Exception as e:
-        logger.error(f"MpesaStatementException: {e}")
-        raise MpesaStatementException(f"An error occurred:{e}")
+        logger.error(f"An error occurred while reading the PDF: {e}")
+        raise MpesaStatementException(f"An error occurred: {e}")
 
 
-results = read_mpesa_pdf("MPESA_Statement_2024-05-11_to_2024-11-11_2547xxxxxx200.pdf", pdf_password="719794")
-
-for result in results:
-    print(f"{result}\n")
+# results = read_mpesa_pdf("MPESA_Statement_2024-11-25_to_2024-11-29_2547xxxxxx200.pdf",pdf_password="411085")
+#
+# for result in results:
+#     print(f"{result}\n")
