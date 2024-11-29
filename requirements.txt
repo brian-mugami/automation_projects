@@ -34,3 +34,4 @@ google-cloud-translate
 nltk
 langchain
 langchain-ollama
+poppler-utils
