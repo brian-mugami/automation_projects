@@ -68,7 +68,7 @@ def read_mpesa_pdf(pdf_path: str, decrypted_pdf_path="decrypted_pdf.pdf", pdf_pa
         raise MpesaStatementException(f"An error occurred:{e}")
 
 
-results = read_mpesa_pdf("MPESA_Statement_2024-05-11_to_2024-11-11_2547xxxxxx200.pdf", pdf_password="719794")
-
-for result in results:
-    print(f"{result}\n")
+# #results = read_mpesa_pdf("MPESA_Statement_2024-05-11_to_2024-11-11_2547xxxxxx200.pdf", pdf_password="719794")
+#
+# for result in results:
+#     print(f"{result}\n")
