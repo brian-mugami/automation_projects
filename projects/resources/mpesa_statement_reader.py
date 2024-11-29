@@ -45,13 +45,13 @@ def read_mpesa_pdf(pdf_path: str, decrypted_pdf_path="decrypted_pdf.pdf", pdf_pa
             logger.info("This PDF is not encrypted.")
             pdf_to_read = pdf_path
 
-        logger.info("Extracting tables with Camelot:")
+        logger.info("Extracting tables with PDFPlumber:")
         with pdfplumber.open(pdf_to_read) as pdf:
             for page_num, page in enumerate(pdf.pages, start=1):
-                logger.info(f"Processing page {page_num}...")
+                # logger.info(f"Processing page {page_num}...")
                 tables = page.extract_tables()
                 for table_num, table in enumerate(tables, start=1):
-                    logger.info(f"Processing table {table_num} on page {page_num}...")
+                    #logger.info(f"Processing table {table_num} on page {page_num}...")
                     headers = table[0]
                     for row_idx, row in enumerate(table[1:], start=1):
                         transaction = {
@@ -68,7 +68,7 @@ def read_mpesa_pdf(pdf_path: str, decrypted_pdf_path="decrypted_pdf.pdf", pdf_pa
         raise MpesaStatementException(f"An error occurred:{e}")
 
 
-# #results = read_mpesa_pdf("MPESA_Statement_2024-05-11_to_2024-11-11_2547xxxxxx200.pdf", pdf_password="719794")
-#
-# for result in results:
-#     print(f"{result}\n")
+results = read_mpesa_pdf("MPESA_Statement_2024-05-11_to_2024-11-11_2547xxxxxx200.pdf", pdf_password="719794")
+
+for result in results:
+    print(f"{result}\n")
