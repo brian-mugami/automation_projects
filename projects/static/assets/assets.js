@@ -15,6 +15,66 @@
     });
 
 })();
+
+document.getElementById("AiWordForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const aiButton = document.getElementById("aiButton");
+    const spinnerLoader = document.getElementById("spinner-loader-ai");
+    const resultMessage = document.getElementById("resultAiMessage");
+    const wordDataResults = document.getElementById("wordDataResults");
+    const parseLink = document.getElementById("redirect-to-parse");
+    const parseLink2 = document.getElementById("redirect-to-parse-2");
+
+    const formData = new FormData(this);
+    aiButton.disabled = true;
+    resultMessage.style.display = "block";
+    resultMessage.innerHTML = "Reading Document...";
+    spinnerLoader.style.display = "block";
+
+    fetch("/ai/word", {
+        method: "POST",
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            spinnerLoader.style.display = "none";
+            aiButton.disabled = false;
+            if (data.success) {
+            parseLink.style.display = "block";
+            parseLink2.style.display = "block";
+                resultMessage.innerHTML = "Document read successfully!";
+                let content = `<h3>Headings</h3><ul>`;
+                data.word_data.headings.forEach(h => {
+                    content += `<li>${h[1]} (${h[0]})</li>`;
+                });
+                content += `</ul><h3>Body Text</h3><p>${data.word_data.body.join("<br>")}</p>`;
+                content += `<h3>Tables</h3>`;
+                data.word_data.tables.forEach(table => {
+                    content += `<table border="1">`;
+                    table.forEach(row => {
+                        content += `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`;
+                    });
+                    content += `</table>`;
+                });
+                wordDataResults.innerHTML = content;
+            } else {
+                resultMessage.innerHTML = data.message || "Error reading document.";
+            parseLink.style.display = "none";
+            parseLink2.style.display = "none";
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            resultMessage.innerHTML = "An error occurred during processing.";
+            aiButton.disabled = false;
+            spinnerLoader.style.display = "none";
+            parseLink.style.display = "none";
+            parseLink2.style.display = "none";
+        });
+});
+
+
 document.getElementById("wordFileInput").addEventListener("change", function () {
     const translateButton = document.getElementById("translateButton");
     const spinnerLoader = document.getElementById("spinner-loader-detect");
@@ -24,7 +84,6 @@ document.getElementById("wordFileInput").addEventListener("change", function () 
     const formData = new FormData();
     formData.append("word_file", fileInput);
 
-    // Show a loading spinner or message
     const resultMessage = document.getElementById("resultMessage");
     translateButton.disabled = true;
     resultMessage.innerHTML = "Detecting language...";
@@ -54,34 +113,32 @@ document.getElementById("wordFileInput").addEventListener("change", function () 
 });
 
 document.getElementById("translateModalForm").addEventListener("submit", function (e) {
-    e.preventDefault();  // Prevent the default form submission
+    e.preventDefault();
 
     const modalStatusMessage = document.getElementById("modalStatusMessage");
     const spinner = document.getElementById("spinner-while-translating");
     const messageContainer = document.getElementById("messages");
 
-    messageContainer.innerHTML = '';  // Clear previous messages
+    messageContainer.innerHTML = '';
     modalStatusMessage.textContent = "Starting translation...";
     modalStatusMessage.style.display = "block";
-    spinner.style.display = "block";  // Show spinner
+    spinner.style.display = "block";
 
-    // Setup EventSource to get progress updates
-    const eventSource = new EventSource("/translate/translate");  // Corrected EventSource URL to match the backend route
+    const eventSource = new EventSource("/translate/translate");
 
     eventSource.onmessage = function (event) {
         const message = event.data;
         const newMessage = document.createElement('p');
         newMessage.textContent = message;
-        messageContainer.appendChild(newMessage);  // Append the message to the container
+        messageContainer.appendChild(newMessage);
 
         if (message.startsWith("download_url-")) {
             const downloadUrl = message.replace("download_url-", "").trim();
-            eventSource.close();  // Close the EventSource
-            spinner.style.display = "none";  // Hide the spinner
+            eventSource.close();
+            spinner.style.display = "none";
             modalStatusMessage.textContent = "Translation completed! Downloading file...";
-            window.location.href = downloadUrl;  // Trigger file download
+            window.location.href = downloadUrl;
         }
-        // If the translation is completed, close the EventSource and hide the spinner
         if (message.includes("Translation completed.")) {
             eventSource.close();
             modalStatusMessage.textContent = "Translation completed!";
@@ -124,7 +181,6 @@ function submitForm(event) {
         convertBtn.disabled = true;
         loadingIndicator.style.display = "block";
 
-        // Append 'from_page' and 'to_page' to form data
         formData.append('from_page', fromPage);
         formData.append('to_page', toPage);
 

@@ -4,7 +4,8 @@
 {% block content %}
 <div class="image-links-container" style="text-align: center;">
     <a href="{{ url_for('reader_blp.reader_main_page') }}" class="image-link">
-        <img id="pdf" src="{{ url_for('static', filename='images/images.jpg') }}" alt="Reader Main Page" width="250" height="182">
+        <img id="pdf" src="{{ url_for('static', filename='images/images.jpg') }}" alt="Reader Main Page" width="250"
+             height="182">
     </a>
     <a href="{{ url_for('quote_blp.create_quote') }}" class="image-link">
         <img src="{{ url_for('static', filename='images/quote_img.jpg') }}" alt="Create Quote" width="250" height="182">
@@ -16,10 +17,14 @@
         <img src="{{ url_for('static', filename='images/excel.jpeg') }}" alt="Excel Main Page" width="250" height="182">
     </a>
     <a href="{{ url_for('translation_blp.language_detector') }}" class="image-link">
-        <img src="{{ url_for('static', filename='images/translation.jpg') }}" alt="Language Detector" width="250" height="182">
+        <img src="{{ url_for('static', filename='images/translation.jpg') }}" alt="Language Detector" width="250"
+             height="182">
     </a>
     <a href="{{ url_for('ai_blp.ai_home') }}" class="image-link">
         <img src="{{ url_for('static', filename='images/ai.jpeg') }}" alt="AI Page" width="250" height="182">
+    </a>
+    <a href="{{ url_for('merge_blp.merge_pdf') }}" class="image-link">
+        <img src="{{ url_for('static', filename='images/maxresdefault.jpg') }}" alt="Merge Page" width="250" height="182">
     </a>
 </div>
 {% endblock %}

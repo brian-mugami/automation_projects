@@ -35,3 +35,4 @@ nltk
 langchain
 langchain-ollama
 poppler-utils
+pprinter

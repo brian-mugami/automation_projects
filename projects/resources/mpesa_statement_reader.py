@@ -22,12 +22,8 @@ def extract_details(detail):
 
 
 def read_mpesa_pdf(pdf_path: str, decrypted_pdf_path="decrypted_pdf.pdf", pdf_password=None):
-    """
-    Reads an Mpesa statement PDF, decrypts it if necessary, extracts tables, and returns transaction details.
-    """
     try:
         pdf_reader = PdfReader(pdf_path)
-        status = ""
         transactions = []
 
         if pdf_reader.is_encrypted:
@@ -78,7 +74,7 @@ def read_mpesa_pdf(pdf_path: str, decrypted_pdf_path="decrypted_pdf.pdf", pdf_pa
         raise MpesaStatementException(f"An error occurred: {e}")
 
 
-# results = read_mpesa_pdf("MPESA_Statement_2024-11-25_to_2024-11-29_2547xxxxxx200.pdf",pdf_password="411085")
+# results = read_mpesa_pdf("Statement.pdf")
 #
 # for result in results:
 #     print(f"{result}\n")

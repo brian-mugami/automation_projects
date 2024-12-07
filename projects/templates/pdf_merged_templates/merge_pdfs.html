@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Merge PDF{% endblock %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <div>
+        <label>{{ form.file.label }}</label>
+        {{ form.file }}
+        {% if form.file.errors %}
+        <div class="error">{{ form.file.errors[0] }}</div>
+        {% endif %}
+    </div>
+
+    <div>
+        <label>{{ form.files.label }}</label>
+        {{ form.files }}
+        {% if form.files.errors %}
+        <div class="error">{{ form.files.errors[0] }}</div>
+        {% endif %}
+    </div>
+
+    <div id="page-numbers-container">
+        <label>Page Numbers:</label>
+    </div>
+    <div>
+        {{ form.submit }}
+    </div>
+</form>
+
+<script>
+    const filesInput = document.querySelector('input[name="files"]');
+    const pageNumbersContainer = document.getElementById('page-numbers-container');
+
+    filesInput.addEventListener('change', () => {
+        pageNumbersContainer.innerHTML = ''; // Clear existing page numbers
+        const files = filesInput.files;
+
+        if (files.length > 0) {
+            for (let i = 0; i < files.length; i++) {
+                const label = document.createElement('label');
+                label.innerText = `Page Number for ${files[i].name}:`;
+
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.name = `page_numbers-${i}`;
+                input.required = true;
+                input.min = 1;
+
+                const div = document.createElement('div');
+                div.appendChild(label);
+                div.appendChild(input);
+
+                pageNumbersContainer.appendChild(div);
+            }
+        }
+    });
+</script>
+{% endblock %}

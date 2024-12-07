@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}AI Parse{% endblock %}
+{% block content %}
+<div>
+    <h1>Instructions</h1>
+    <form enctype="multipart/form-data" id="AiParseForm" method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{form.option.label}}
+            {{ form.option(id="parseOption") }}
+        </div>
+        <div class="form-group">
+            {{form.model.label}}
+            {{ form.model(id="parseModel") }}
+        </div>
+        <button id="parseButton" type="submit" class="btn btn-dark">Parse</button>
+    </form>
+    <div class="spinner-border text-primary" id="spinner-loader-parse" role="status" style="display: none;">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div id="resultParseMessage" style="display: none;"></div>
+    <div id="wordParseResults" style="margin-top: 20px;"></div>
+</div>
+{% endblock %}

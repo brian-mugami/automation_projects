@@ -36,7 +36,6 @@ def pager_main_page():
             file_path = os.path.join(upload_dir, filename)
             paginated_path = os.path.join(pager_dir, f"{name}_paginated_from _{from_no}.pdf")
             file.save(file_path)
-            print(from_no)
             paginate_pdf(file_path, paginated_path, start_num_str=str(from_no), end_num=to_no, x_offset=x_offset,
                          y_offset=y_offset)
             if os.path.exists(paginated_path):

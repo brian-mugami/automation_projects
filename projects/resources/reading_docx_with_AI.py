@@ -20,7 +20,6 @@ def read_word_document(file_path):
             data["headings"].append((para.style.name, para.text))
         elif para.text:
             data["body"].append(para.text)
-    # Tables
     for table in doc.tables:
         table_data = []
         for row in table.rows:
@@ -50,26 +49,8 @@ def read_word_document(file_path):
     return data
 
 
-# file_path = "ERP_Document_Final.docx"
-# document_data = read_word_document(file_path)
-#
-# print("Headings:")
-# for level, heading in document_data["headings"]:
-#     print(f"{level}: {heading}")
-#
-# print("\nBody Text:")
-# print("\n".join(document_data["body"]))
-#
-# print("\nTables:")
-# for table in document_data["tables"]:
-#     for row in table:
-#         print(row)
-#
-# print("\nHeaders:")
-# print("\n".join(document_data["headers"]))
-#
-# print("\nFooters:")
-# print("\n".join(document_data["footers"]))
-#
-# print("\nText Boxes:")
-# print("\n".join(document_data["text_boxes"]))
+def split_data_content(data, specified_area, max_length=6000):
+    area = data[specified_area]
+    return [
+        area[i:i + max_length] for i in range(0, len(area), max_length)
+    ]
