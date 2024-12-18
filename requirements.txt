@@ -24,7 +24,6 @@ pdf2docx
 opencv-python-headless
 langdetect
 langid
-googletrans==4.0.0-rc1
 googletrans
 PyMuPDF
 deepl
@@ -36,3 +35,5 @@ langchain
 langchain-ollama
 poppler-utils
 pprinter
+lxml
+html5lib

@@ -12,7 +12,5 @@ class TranslationForm(FlaskForm):
         FileAllowed(['doc', 'docx'], message="Only Word files are allowed!")
     ])
     language = SelectField("What Language To Translate To?", choices=language_choices)
-    model = RadioField("Model to use", choices=[("googletrans", "googletrans"), ("Deep Translator", "Deep Translator"),
-                                                ("model3", "model3"),
-                                                ("model4", "model4"), ])
+    model = RadioField("Model to use", choices=[("Deep Translator", "Deep Translator")])
     translate = SubmitField("Translate")

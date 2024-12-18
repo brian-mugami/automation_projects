@@ -1,8 +1,10 @@
+import json
 import os
 
-from flask import Blueprint, render_template, current_app, request, jsonify, session, flash
+from flask import Blueprint, render_template, current_app, request, jsonify, session
 
 from .ai_reader_forms import ReadingForm, ParsingForm
+from ...resources.parse_docx_with_AI import split_content, parse_with_llama
 from ...resources.reading_docx_with_AI import read_word_document
 
 ai_blp = Blueprint("ai_blp", __name__)
@@ -34,7 +36,10 @@ def ai_word():
             word_path = os.path.join(word_dir, f"{name}.docx")
             file.save(word_path)
             word_data = read_word_document(word_path)
-            session["data"] = word_data
+            data_path = os.path.join(word_dir, f"{name}_data.json")
+            with open(data_path, "w") as f:
+                json.dump(word_data, f)
+            session["data_path"] = data_path
             return jsonify({"success": True, "word_data": word_data})
         except Exception as e:
             print(str(e))
@@ -45,7 +50,26 @@ def ai_word():
 @ai_blp.route("/parse", methods=["POST", "GET"])
 def ai_parse():
     form = ParsingForm()
-    data = session.get("data")
-    if not data:
-        flash("There is no word document read", category="error")
+    section = form.option.data
+    model = form.model.data
+    description = form.description.data
+    data_path = session.get("data_path")
+    if not data_path or not os.path.exists(data_path):
+        return jsonify({"error": "There is no word document read"})
+    with open(data_path, "r") as f:
+        data_parsed = json.load(f)
+    try:
+        if request.method == "POST":
+            data = data_parsed.get(section, None)
+            if not data:
+                return jsonify({"error": f"No Data has been parsed from {section}"})
+            else:
+                if model == "Ollama":
+                    chunks = split_content(data)
+                    result = parse_with_llama(chunks, description)
+                    print("yes")
+                    print(result)
+                    return jsonify({"result": result}), 200
+    except Exception as e:
+        return jsonify({"error": f"An error occurred during parsing: {str(e)}"}), 500
     return render_template("ai_templates/word_parser.html", form=form)
